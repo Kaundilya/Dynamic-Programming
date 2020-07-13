@@ -1,0 +1,27 @@
+class Solution {
+public:
+    static bool cmp(vector<int>& a,vector<int>& b)
+    {
+        return a[0]<b[0];
+    }
+    int findLongestChain(vector<vector<int>>& pairs) {
+        int n=pairs.size();
+        if(n==0)
+            return 0;
+        int mxm=1;
+        vector<int>dp(n,1);
+        sort(pairs.begin(),pairs.end(),cmp);
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(pairs[i][0]>pairs[j][1])
+                {
+                    dp[i]=max(dp[i],dp[j]+1);
+                    mxm=max(dp[i],mxm);
+                }
+            }
+        }
+        return mxm;
+    }
+};
